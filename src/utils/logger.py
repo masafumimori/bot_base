@@ -1,11 +1,11 @@
 import os
 from datetime import datetime
-from typing import Callable, Dict, Optional
+from typing import Callable, Dict, Optional, List
 from loguru import logger
 from notifiers.logging import NotificationHandler
 from .notifier import Discord, Notifier
 
-notifiers_params = {
+gmail_notofier_params = {
     "username": os.getenv('GMAIL_USERNAME'),
     "password":  os.getenv('GMAIL_PASSWORD'),
     "to":  os.getenv('NOFITY_TO')
@@ -19,9 +19,9 @@ FILEPATHS = {
 class Logger:
 
     _instance = None
-    notifiers: list[Notifier] = []
+    notifiers: List[Notifier] = []
 
-    def __new__(cls, notifiers=["gmail"]):
+    def __new__(cls, notifiers=["discord"]):
         if cls._instance is None:
             cls._instance = super().__new__(cls)
 
@@ -35,12 +35,11 @@ class Logger:
                     error_file.write(message)
 
             logger.add(error_sink, level="ERROR")
-
             cls._instance.notifiers = cls._instance.__set_notifiers(notifiers)
 
         return cls._instance
 
-    def __set_notifiers(self, notifiers):
+    def __set_notifiers(self, notifiers) -> List[Notifier]:
         notifier_setup_funcs: Dict[str, Callable[[], Optional[Notifier]]] = {
             "gmail": self.__set_gmail_notifier,
             "discord": self._get_discord_notifier
@@ -60,9 +59,9 @@ class Logger:
         return notifiers_set
 
     def __set_gmail_notifier(self) -> None:
-        handler = NotificationHandler("gmail", defaults=notifiers_params)
+        handler = NotificationHandler("gmail", defaults=gmail_notofier_params)
         logger.add(handler, level="ERROR")
-    
+
     def _get_discord_notifier(self) -> Notifier:
         return Discord(DISCORD_WEBHOOK_URL)
 
