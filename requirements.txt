@@ -10,3 +10,4 @@ numba
 python-dotenv
 notifiers
 loguru
+requests

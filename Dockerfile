@@ -1,9 +1,11 @@
-# FROM tensorflow/tensorflow:latest
 FROM python:3.8-slim
 
-WORKDIR /projects/bots
+WORKDIR /projects/bot
 
 RUN pip install --upgrade pip
+
+# To avoid error `failed to solve: executor failed running [/bin/sh -c pip install -r requirements.txt]: exit code: 1`
+RUN apt-get update && apt-get install -y gcc python3-dev
 
 ###################
 # TO INSTALL TA-LIB
@@ -26,6 +28,6 @@ COPY requirements.txt requirements.txt
 
 RUN pip install -r requirements.txt
 
-EXPOSE 8080
+EXPOSE 8888
 
-ENTRYPOINT [ "jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--no-browser", "--NotebookApp.token='sevas'", "--port=8080"]
+ENTRYPOINT [ "jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--no-browser", "--NotebookApp.token='sevas'"]
