@@ -1,0 +1,13 @@
+version: "3"
+services:
+  jupyter:
+    container_name: bot
+    build:
+      context: .
+      dockerfile: "Dockerfile"
+    ports:
+      - 8080:8080
+    volumes:
+      - ./src:/projects/bots
+    # environment:
+    #   PYTHONPATH: /projects/bots/scripts
