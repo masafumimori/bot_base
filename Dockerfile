@@ -1,6 +1,7 @@
 FROM python:3.8-slim
 
 WORKDIR /projects/bot
+ENV PYTHONPATH="/projects/bot:$PYTHONPATH"
 
 RUN pip install --upgrade pip
 
@@ -30,4 +31,4 @@ RUN pip install -r requirements.txt
 
 EXPOSE 8888
 
-ENTRYPOINT [ "jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--no-browser", "--NotebookApp.token='sevas'"]
+ENTRYPOINT [ "jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--no-browser", "--NotebookApp.token='password'"]
