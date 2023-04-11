@@ -50,7 +50,7 @@ class Discord(Notifier):
         requests.post(self.__webhookurl, json.dumps(content), headers=headers)
 
 
-class Line(Notifier):
+class LINE(Notifier):
     """
     Notifier object that sends messages to a LINE user or group.
     """
