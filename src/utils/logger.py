@@ -118,4 +118,4 @@ class Logger:
             try:
                 notifier.send(msg)
             except:
-                logger.info(f"ERROR: Failed to send notification to {notifier.__name__}")
+                logger.warning(f"Failed to send notification to {notifier.__class__.__name__}")
