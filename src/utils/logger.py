@@ -146,6 +146,18 @@ class Logger:
             self.__send_notifications(msg)
         logger.info(msg)
 
+    def success(self, msg: str, notify: bool = False) -> None:
+        """
+        Logs an success-level message and sends notifications if the notify parameter is set to True.
+
+        Args:
+            msg (str): The message to log.
+            notify (bool): If True, sends notifications. Defaults to False.
+        """
+        if notify:
+            self.__send_notifications(msg)
+        logger.success(msg)
+
     def warning(self, msg: str, notify: bool = False) -> None:
         """
         Logs a warning-level message and sends notifications if the notify parameter is set to True.
@@ -180,7 +192,21 @@ class Logger:
         """
         if notify:
             self.__send_notifications(msg)
+
+        # exception() : Convenience method for logging an 'ERROR' with exception information.
         logger.exception(msg)
+    
+    def critical(self, msg: str, notify: bool = True) -> None:
+        """
+        Logs an critical-level message and sends notifications if the notify parameter is set to True.
+
+        Args:
+            msg (str): The message to log.
+            notify (bool): If True, sends notifications. Defaults to True.
+        """
+        if notify:
+            self.__send_notifications(msg)
+        logger.critical(msg)
 
     def __send_notifications(self, msg: str) -> None:
         """
