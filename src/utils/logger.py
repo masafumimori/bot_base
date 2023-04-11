@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import Callable, Dict, Optional, List
 from loguru import logger
 from notifiers.logging import NotificationHandler
-from .notifier import Discord, Notifier
+from notifier import Discord, LINE, Notifier
 
 gmail_notofier_params = {
     "username": os.getenv('GMAIL_USERNAME'),
@@ -12,6 +12,8 @@ gmail_notofier_params = {
 }
 
 DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
+LINE_NOTIFY_TOKEN = os.getenv("LINE_NOTIFY_TOKEN")
+
 FILEPATHS = {
     "info": "log/output.log",
 }
@@ -42,7 +44,8 @@ class Logger:
     def __set_notifiers(self, notifiers) -> List[Notifier]:
         notifier_setup_funcs: Dict[str, Callable[[], Optional[Notifier]]] = {
             "gmail": self.__set_gmail_notifier,
-            "discord": self._get_discord_notifier
+            "discord": self._get_discord_notifier,
+            "line": self._get_line_notifier
             # Add other notifiers and their setup functions here
         }
 
@@ -64,6 +67,9 @@ class Logger:
 
     def _get_discord_notifier(self) -> Notifier:
         return Discord(DISCORD_WEBHOOK_URL)
+    
+    def _get_line_notifier(self) -> Notifier:
+        return LINE(LINE_NOTIFY_TOKEN)
 
     def info(self, msg):
         self.__send_notifications(msg)
