@@ -3,20 +3,47 @@ import json
 import requests
 
 class Notifier(ABC):
+    """
+    Abstract base class for notifier objects that can send messages to external services.
+    """
 
     def __init__(self) -> None:
+        """
+        Initializes the notifier instance.
+        """
         pass
 
     @abstractmethod
-    def send(self, msg: str):
+    def send(self, msg: str) -> None:
+        """
+        Sends a message using the notifier.
+
+        Parameters:
+        - `msg`: The message to send.
+        """
         pass
 
 class Discord(Notifier):
+    """
+    Notifier object that sends messages to a Discord channel.
+    """
 
-    def __init__(self, url) -> None:
+    def __init__(self, url: str) -> None:
+        """
+        Initializes the Discord notifier instance with a webhook URL.
+
+        Parameters:
+        - `url`: The Discord webhook URL to use.
+        """
         self.__webhookurl = url
-    
-    def send(self, msg):
+
+    def send(self, msg: str) -> None:
+        """
+        Sends a message to the Discord channel.
+
+        Parameters:
+        - `msg`: The message to send.
+        """
         content = {'content': msg}
         headers = {'Content-Type': 'application/json'}
 
