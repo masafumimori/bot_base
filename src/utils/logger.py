@@ -14,10 +14,6 @@ GMAIL_NOTIFIER_PARAMS = {
 DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
 LINE_NOTIFY_TOKEN = os.getenv("LINE_NOTIFY_TOKEN")
 
-FILEPATHS = {
-    "info": "log/output.log",
-}
-
 class Logger:
 
     _instance = None
@@ -63,12 +59,12 @@ class Logger:
 
     def __setup_logger(self):
         logger.remove()
-        logger.add(FILEPATHS["info"], rotation="500 MB")
+        logger.add("logs/output.log", rotation="500 MB")
 
         # Custom sink function to create a new error log file with timestamp
         def error_sink(message):
             timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-            with open(f"log/error_{timestamp}.log", "w") as error_file:
+            with open(f"logs/error_{timestamp}.log", "w") as error_file:
                 error_file.write(message)
 
         logger.add(error_sink, level="ERROR")
