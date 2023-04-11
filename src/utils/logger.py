@@ -134,42 +134,52 @@ class Logger:
         """
         return LINE(LINE_NOTIFY_TOKEN)
 
-    def info(self, msg: str) -> None:
+    def info(self, msg: str, notify: bool = False) -> None:
         """
-        Logs an info-level message and sends notifications.
+        Logs an info-level message and sends notifications if the notify parameter is set to True.
 
         Args:
             msg (str): The message to log.
+            notify (bool): If True, sends notifications. Defaults to False.
         """
-        self.__send_notifications(msg)
+        if notify:
+            self.__send_notifications(msg)
         logger.info(msg)
 
-    def warning(self, msg: str) -> None:
+    def warning(self, msg: str, notify: bool = False) -> None:
         """
-        Logs a warning-level message.
+        Logs a warning-level message and sends notifications if the notify parameter is set to True.
 
         Args:
             msg (str): The message to log.
+            notify (bool): If True, sends notifications. Defaults to False.
         """
+        if notify:
+            self.__send_notifications(msg)
         logger.warning(msg)
 
-    def debug(self, msg: str) -> None:
+    def debug(self, msg: str, notify: bool = False) -> None:
         """
-        Logs a debug-level message.
+        Logs a debug-level message and sends notifications if the notify parameter is set to True.
 
         Args:
             msg (str): The message to log.
+            notify (bool): If True, sends notifications. Defaults to False.
         """
+        if notify:
+            self.__send_notifications(msg)
         logger.debug(msg)
 
-    def error(self, msg: str) -> None:
+    def error(self, msg: str, notify: bool = True) -> None:
         """
-        Logs an error-level message and sends notifications.
+        Logs an error-level message and sends notifications if the notify parameter is set to True.
 
         Args:
             msg (str): The message to log.
+            notify (bool): If True, sends notifications. Defaults to True.
         """
-        self.__send_notifications(msg)
+        if notify:
+            self.__send_notifications(msg)
         logger.exception(msg)
 
     def __send_notifications(self, msg: str) -> None:
