@@ -8,7 +8,7 @@ from datetime import datetime
 
 def main():
     try:
-        Logger().info(f'Start running at {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
+        Logger.instance(["gmail"]).info(f'Start running at {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
         
         # Code for running bot
 
