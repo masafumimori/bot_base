@@ -1,12 +1,8 @@
 pandas
 matplotlib
 jupyterlab
-scikit-learn
-tqdm
-jupyter
 pandas_ta
 ccxt
-numba
 python-dotenv
 notifiers
 loguru
