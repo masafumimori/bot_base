@@ -1,6 +1,6 @@
 version: '3'
 services:
-  jupyter:
+  dev:
     container_name: bot
     build:
       context: .
