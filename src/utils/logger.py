@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import Callable, Dict, List, Optional
 from loguru import logger
 from notifiers.logging import NotificationHandler
-from notifier import Discord, LINE, Notifier
+from .notifier import Discord, LINE, Notifier
 
 GMAIL_NOTIFIER_PARAMS = {
     "username": os.getenv('GMAIL_USERNAME'),
